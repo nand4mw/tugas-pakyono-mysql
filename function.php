@@ -13,6 +13,19 @@
         return $rows;
     }
 
+    function countBill($id) 
+    {
+        $total = 0;
+        $count  = query("SELECT * FROM pembayaran WHERE id_mahasiswa=$id");
+
+        if($count != NULL) {
+            foreach($count as $data) {
+                $total += $data["nominal_terbayar"];
+            }
+        }
+
+        return $total;
+    }
 
     
     ?> 
