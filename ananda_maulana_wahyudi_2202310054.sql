@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 03, 2023 at 03:05 PM
+-- Generation Time: Nov 03, 2023 at 06:24 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tugas_fix`
+-- Database: `ananda_maulana_wahyudi_2202310054`
 --
 
 -- --------------------------------------------------------
@@ -161,13 +161,17 @@ INSERT INTO `status` (`id_status_mhs`, `status_mhs`) VALUES
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`id_mahasiswa`);
+  ADD PRIMARY KEY (`id_mahasiswa`),
+  ADD KEY `id_prodi` (`id_prodi`),
+  ADD KEY `id_sistem_kuliah` (`id_sistem_kuliah`),
+  ADD KEY `id_status_mhs` (`id_status_mhs`);
 
 --
 -- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD PRIMARY KEY (`id_pembayaran`);
+  ADD PRIMARY KEY (`id_pembayaran`),
+  ADD KEY `id_mahasiswa` (`id_mahasiswa`);
 
 --
 -- Indexes for table `prodi`
@@ -186,6 +190,24 @@ ALTER TABLE `sistem_kuliah`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`id_status_mhs`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`id_prodi`) REFERENCES `prodi` (`id_prodi`),
+  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`id_status_mhs`) REFERENCES `status` (`id_status_mhs`),
+  ADD CONSTRAINT `mahasiswa_ibfk_3` FOREIGN KEY (`id_sistem_kuliah`) REFERENCES `sistem_kuliah` (`id_sistem_kuliah`);
+
+--
+-- Constraints for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

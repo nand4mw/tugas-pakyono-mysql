@@ -1,5 +1,5 @@
  <?php
-    $conn = mysqli_connect("localhost", "root", "", "tugas_fix");
+    $conn = mysqli_connect("localhost", "root", "", "ananda_maulana_wahyudi_2202310054");
 
 
     function query($query)
@@ -13,13 +13,13 @@
         return $rows;
     }
 
-    function countBill($id) 
+    function countBill($id)
     {
         $total = 0;
         $count  = query("SELECT * FROM pembayaran WHERE id_mahasiswa=$id");
 
-        if($count != NULL) {
-            foreach($count as $data) {
+        if ($count != NULL) {
+            foreach ($count as $data) {
                 $total += $data["nominal_terbayar"];
             }
         }
@@ -27,5 +27,5 @@
         return $total;
     }
 
-    
+
     ?> 
